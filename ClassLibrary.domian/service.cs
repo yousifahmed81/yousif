@@ -20,7 +20,7 @@ namespace ClassLibrary.domian
         
         public string Price { get; set; }
         [MaxLength(length: 100)]
-        public Service barber { get; set; }
+        public barber barber { get; set; }
 
         public int barberId { get; set; }
 

@@ -1,9 +1,7 @@
 ﻿using ClassLibrary.domian;
-using ClassLibrary2; 
-using Library.ServicesInterface;
+using ClassLibrary2;
 using Library.ServicesInterfaces;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 
 namespace Library.Services
 {
@@ -21,11 +19,11 @@ namespace Library.Services
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var tmp = db.barber.FirstOrDefault(x => x.id == service.id);
+            var tmp = db.Barbers.FirstOrDefault(x => x.id == service.id);
 
             if (tmp == null)
             {
-                db.services.Add(service);
+                db.Services.Add(service);
                 db.SaveChanges();
             }
 
@@ -35,7 +33,7 @@ namespace Library.Services
         {
             using var db = (_contextFactory.CreateDbContext());
 
-            var tmp = db.services.FirstOrDefault(x => x.id == service.id);
+            var tmp = db.Services.FirstOrDefault(x => x.id == service.id);
 
             if (tmp != null)
             {
@@ -50,11 +48,11 @@ namespace Library.Services
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var tmp = db.services.FirstOrDefault(x => x.id == services.id);
+            var tmp = db.Services.FirstOrDefault(x => x.id == services.id);
 
             if (tmp != null)
             {
-                db.services.Remove(tmp);
+                db.Services.Remove(tmp);
                 db.SaveChanges();
             }
         }
@@ -63,7 +61,7 @@ namespace Library.Services
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var Service = db.services.FirstOrDefault(x => x.id == id);
+            var Service = db.Services.FirstOrDefault(x => x.id == id);
             return Service;
         }
 
@@ -71,7 +69,7 @@ namespace Library.Services
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var Service = db.services.FirstOrDefault(x => x.name.ToUpper() == x.name.Trim().ToUpper());
+            var Service = db.Services.FirstOrDefault(x => x.name.ToUpper() == x.name.Trim().ToUpper());
             return Service;
         }
 
@@ -79,7 +77,7 @@ namespace Library.Services
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var Service = db.services.Where(x => x.Price.Contains(price));
+            var Service = db.Services.Where(x => x.Price.Contains(price));
             return [.. Service];
         }
 
@@ -87,7 +85,7 @@ namespace Library.Services
         {
             using var db = _contextFactory.CreateDbContext();
 
-            return [.. db.services];
+            return [.. db.Services];
         }
     }
     }

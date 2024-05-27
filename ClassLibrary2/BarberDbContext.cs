@@ -18,8 +18,8 @@ namespace ClassLibrary2
         {
             
         }
-        public  DbSet<barber> barber { get; set; }
-        public DbSet<Service> services { get; set; }
+        public  DbSet<barber> Barbers { get; set; }
+        public DbSet<Service> Services { get; set; }
 
       
         }

@@ -14,7 +14,7 @@ namespace yousif.webui
 
 
             builder.Services.AddDbContextFactory<BarberDbContext>(Options =>
-                Options.UseSqlServer(builder.Configuration.GetConnectionString(name: "DBconnection")));
+                Options.UseSqlServer(builder.Configuration.GetConnectionString("DBconnection")));
 
             // Add services to the container.
 

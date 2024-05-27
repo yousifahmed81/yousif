@@ -18,4 +18,7 @@
 		<ProjectReference Include="..\ClassLibrary.domian\ClassLibrary.domian.csproj" />
 		
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Migrations\" />
+	</ItemGroup>
 </Project>
