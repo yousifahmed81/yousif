@@ -1,0 +1,70 @@
+﻿@using ClassLibrary.domian
+@using Library.ServicesInterfaces
+
+
+@if (isVisible)
+{
+    <div class="modal show" tabindex="-1" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@((barber.id == 0) ? "Add Barber" : "Edit Barber")</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="Cancel"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">name</label>
+                        <input type="text" class="form-control" id="name" @bind="barber.name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="Phone" class="form-label">Phone</label>
+                        <input type="text" class="form-control" id="Phone" @bind="barber.Phone">
+                    </div>
+                    <div class="mb-3">
+                        <label for="Email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="Email" @bind="barber.Email">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+                    <button type="button" class="btn btn-primary" @onclick="Save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@code {
+
+    [Parameter] public EventCallback OnSave { get; set; }
+    [Inject] public IBarberService BarberServices { get; set; }
+
+    private bool isVisible;
+
+    private Barber barber = new();
+
+    public void Show(Barber barber)
+    {
+        this.barber = barber;
+        isVisible = true;
+    }
+
+    private void Save()
+    {
+        if (barber.id == 0)
+        {
+            BarberServices.Save(barber);
+        }
+        else
+        {
+            BarberServices.Update(barber);
+        }
+
+        isVisible = false;
+        OnSave.InvokeAsync();
+    }
+
+    private void Cancel()
+    {
+        isVisible = false;
+    }
+}

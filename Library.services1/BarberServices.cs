@@ -1,9 +1,7 @@
 ﻿using ClassLibrary.domian;
 using ClassLibrary2;
-using Library.ServicesInterface;
 using Library.ServicesInterfaces;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 
 namespace Library.Services
 {
@@ -16,25 +14,25 @@ namespace Library.Services
             _contextFactory = dbContextFactory;
         }
 
-        public void Save(barber barber)
+        public void Save(Barber barber)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var tmp = db.barber.FirstOrDefault(x => x.id == barber.id);
+            var tmp = db.Barbers.FirstOrDefault(x => x.id == barber.id);
 
             if (tmp == null)
             {
-                db.barber.Add(barber);
+                db.Barbers.Add(barber);
                 db.SaveChanges();
             }
 
         }
 
-        public void Update(barber barber)
+        public void Update(Barber barber)
         {
             using var db = (_contextFactory.CreateDbContext());
 
-            var tmp = db.barber.FirstOrDefault(x => x.id == barber.id);
+            var tmp = db.Barbers.FirstOrDefault(x => x.id == barber.id);
 
             if (tmp != null)
             {
@@ -47,48 +45,48 @@ namespace Library.Services
             }
         }
 
-        public void Delete(barber barber)
+        public void Delete(Barber barber)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var tmp = db.barber.FirstOrDefault(x => x.id == barber.id);
+            var tmp = db.Barbers.FirstOrDefault(x => x.id == barber.id);
 
             if (tmp != null)
             {
-                db.barber.Remove(tmp);
+                db.Barbers.Remove(tmp);
                 db.SaveChanges();
             }
         }
 
-        public barber Get(int id)
+        public Barber Get(int id)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var barber = db.barber.FirstOrDefault(x => x.id == id);
+            var barber = db.Barbers.FirstOrDefault(x => x.id == id);
             return barber;
         }
 
-        public barber Get(string name)
+        public Barber Get(string name)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var barber = db.barber.FirstOrDefault(x => x.name.ToUpper() == name.Trim().ToUpper());
+            var barber = db.Barbers.FirstOrDefault(x => x.name.ToUpper() == name.Trim().ToUpper());
             return barber;
         }
 
-        public List<barber> GetList(string email)
+        public List<Barber> GetList(string email)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var barber = db.barber.Where(x => x.Email.Contains(email));
+            var barber = db.Barbers.Where(x => x.Email.Contains(email));
             return [.. barber];
         }
 
-        public List<barber> GetAll()
+        public List<Barber> GetAll()
         {
             using var db = _contextFactory.CreateDbContext();
 
-            return [.. db.barber];
+            return [.. db.Barbers];
         }
     }
 }

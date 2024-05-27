@@ -14,9 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "entity", "entity", "{5D6A8B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary2", "ClassLibrary2\ClassLibrary2.csproj", "{3989CF14-F656-4152-A945-E47473F201B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.services1", "Library.services1\Library.services1.csproj", "{D7118F74-6E81-44F2-9151-DDD31608883B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.services1", "Library.services1\Library.services1.csproj", "{D7118F74-6E81-44F2-9151-DDD31608883B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.ServicesInterface", "Library.ServicesInterface\Library.ServicesInterface.csproj", "{CE772327-22AE-4158-81C4-2C6EC08CF064}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.ServicesInterface", "Library.ServicesInterface\Library.ServicesInterface.csproj", "{CE772327-22AE-4158-81C4-2C6EC08CF064}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

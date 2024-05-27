@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.domian
 {
-    public class barber
+    public class Barber
     {
         public int id { get; set; }
         

@@ -5,50 +5,50 @@
 namespace ClassLibrary2.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class First : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "barbers",
+                name: "Barbers",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_barbers", x => x.id);
+                    table.PrimaryKey("PK_Barbers", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "services",
+                name: "Services",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    price = table.Column<int>(type: "nvarchar(max)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Price = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     barberId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_services", x => x.id);
+                    table.PrimaryKey("PK_Services", x => x.id);
                     table.ForeignKey(
-                        name: "FK_services_barbers_barberId",
+                        name: "FK_Services_Barbers_barberId",
                         column: x => x.barberId,
-                        principalTable: "barbers",
+                        principalTable: "Barbers",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_services_barberId",
-                table: "services",
+                name: "IX_Services_barberId",
+                table: "Services",
                 column: "barberId");
         }
 
@@ -56,10 +56,10 @@ namespace ClassLibrary2.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "services");
+                name: "Services");
 
             migrationBuilder.DropTable(
-                name: "barbers");
+                name: "Barbers");
         }
     }
 }

@@ -1,0 +1,79 @@
+﻿@page "/Barber"
+@rendermode InteractiveServer
+
+@using ClassLibrary.domian
+@using ClassLibrary2
+@using Library.Services
+@using Library.ServicesInterfaces
+
+<h3>Barber</h3>
+
+<button class="btn btn-primary" @onclick="ShowAddModal">Add New Barber</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var barber in barbers)
+        {
+            <tr>
+
+                <td>@barber.name</td>
+                <td>@barber.Phone</td>
+                <td>@barber.Email</td>
+
+                <td>
+                    <button class="btn btn-secondary" @onclick="() => ShowEditModal(barber)">Edit</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteBarber(barber)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<AddEditBarberModal @ref="addEditBarberModal" OnSave="RefreshList" />
+
+@code {
+    [Inject] IBarberService BarberServices { get; set; }
+
+    private List<Barber> barbers;
+
+    private AddEditBarberModal addEditBarberModal;
+
+    protected override void OnInitialized()
+    {
+        LoadBarber();
+    }
+
+    private void LoadBarber()
+    {
+        barbers = BarberServices.GetAll();
+    }
+
+    private void ShowAddModal()
+    {
+        addEditBarberModal.Show(new Barber());
+    }
+
+    private void ShowEditModal(Barber barber)
+    {
+        addEditBarberModal.Show(barber);
+    }
+
+    private void DeleteBarber(Barber barber)
+    {
+        BarberServices.Delete(barber);
+        LoadBarber();
+    }
+
+    private void RefreshList()
+    {
+        LoadBarber();
+    }
+}
