@@ -14,6 +14,10 @@ namespace Library.Services
             _contextFactory = dbContextFactory;
         }
 
+        /// <summary>
+        /// method to save barber
+        /// </summary>
+        /// <param name="barber"></param>
         public void Save(Barber barber)
         {
             using var db = _contextFactory.CreateDbContext();
