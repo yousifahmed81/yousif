@@ -90,7 +90,6 @@ namespace Library.Services
         {
             using var db = _contextFactory.CreateDbContext();
 
-            return [.. db.Barbers];
         }
     }
 }

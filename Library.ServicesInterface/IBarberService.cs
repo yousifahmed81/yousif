@@ -4,13 +4,15 @@ namespace Library.ServicesInterfaces
     public interface IBarberService
     {
 
-        void Save(Barber barber);
-        void Update(Barber barber);
-        void Delete(Barber barber);
-        Barber Get(int id);
-        Barber Get(string name);
-        List<Barber> GetList(string email);
-        List<Barber> GetAll();
+        Task Save(Barber barber);
+        Task Update(Barber barber);
+        Task Delete(Barber barber);
+       Task <Barber> Get(int id);
+        Task <Barber> Get(string name);
+        Task<List<Barber>> GetList(string Email);
+        Task<List<Barber>>GetAll();
+        Task AddServiceToBarber(Barber barber, Service service);
+        Task RemoveServiceFromBarber(Barber barber, Service service);
       
 
     }

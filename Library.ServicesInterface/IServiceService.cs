@@ -4,12 +4,12 @@ namespace Library.ServicesInterfaces
 {
     public interface IServiceService
     {
-        void Delete(Service service);
-        Service Get(int id);
-        Service Get(string name);
-        List<Service> GetList(string Price);
-        void Save(Service service);
-        void Update(Service service);
-        List<Service> GetAll();
+        Task Delete(Service service);
+        Task<Service> Get(int id);
+        Task<Service> Get(string name);
+        Task<List<Service>> GetList(string Price);
+        Task Save(Service service);
+        Task Update(Service service);
+        Task<List<Service>> GetAll();
     }
 }
