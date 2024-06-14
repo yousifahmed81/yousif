@@ -1,4 +1,5 @@
 ﻿using ClassLibrary.domian;
+using ClassLibrary;
 namespace Library.ServicesInterfaces
 {
     public interface IBarberService
@@ -13,7 +14,7 @@ namespace Library.ServicesInterfaces
         Task<List<Barber>>GetAll();
         Task AddServiceToBarber(Barber barber, Service service);
         Task RemoveServiceFromBarber(Barber barber, Service service);
-      
+
 
     }
 }

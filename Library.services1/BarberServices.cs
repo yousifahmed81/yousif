@@ -18,7 +18,7 @@ namespace Library.Services
         /// method to save barber
         /// </summary>
         /// <param name="barber"></param>
-        public void Save(Barber barber)
+        public async Task Save(Barber barber)
         {
             using var db = _contextFactory.CreateDbContext();
 
@@ -27,13 +27,14 @@ namespace Library.Services
             if (tmp == null)
             {
                 db.Barbers.Add(barber);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
 
         }
 
-        public void Update(Barber barber)
+        public async Task Update(Barber barber)
         {
+
             using var db = (_contextFactory.CreateDbContext());
 
             var tmp = db.Barbers.FirstOrDefault(x => x.id == barber.id);
@@ -45,11 +46,11 @@ namespace Library.Services
                 tmp.Email = barber.Email;
 
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
-        public void Delete(Barber barber)
+        public async Task Delete(Barber barber)
         {
             using var db = _contextFactory.CreateDbContext();
 
@@ -58,37 +59,74 @@ namespace Library.Services
             if (tmp != null)
             {
                 db.Barbers.Remove(tmp);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
-        public Barber Get(int id)
+        public async Task<Barber> Get(int id)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var barber = db.Barbers.FirstOrDefault(x => x.id == id);
+            var barber = await db.Barbers.FirstOrDefaultAsync(x => x.id == id);
             return barber;
         }
 
-        public Barber Get(string name)
+        public async Task<Barber> Get(string name)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var barber = db.Barbers.FirstOrDefault(x => x.name.ToUpper() == name.Trim().ToUpper());
+            var barber = await db.Barbers.FirstOrDefaultAsync(x => x.name.ToUpper() == name.Trim().ToUpper());
             return barber;
         }
 
-        public List<Barber> GetList(string email)
+        public async Task<List<Barber>> GetList(string email)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var barber = db.Barbers.Where(x => x.Email.Contains(email));
+            var barber = await db.Barbers.Where(x => x.Email.Contains(email)).ToListAsync();
             return [.. barber];
         }
 
-        public List<Barber> GetAll()
+        public async Task<List<Barber>> GetAll()
         {
             using var db = _contextFactory.CreateDbContext();
+
+            return await db.Barbers.ToListAsync();
+        }
+        public async Task AddServiceToBarber(Barber barber, Service service)
+        {
+            using var db = _contextFactory.CreateDbContext();
+            var tmpBar = db.Barbers.Include(x => x.services).FirstOrDefault(x => x.id == barber.id);
+            if (tmpBar != null)
+            {
+                var tmpSer = db.Services.FirstOrDefault(x => x.id == service.id);
+                if (tmpSer != null)
+                {
+                    tmpBar.services.Add(tmpSer);
+                }
+                else
+                {
+                    db.Services.Add(service);
+                    await db.SaveChangesAsync();
+                    tmpBar.services.Add(service);
+                }
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task RemoveServiceFromBarber(Barber barber, Service service)
+        {
+            using var db = _contextFactory.CreateDbContext();
+            var tmpBar = db.Barbers.Include(x => x.services).FirstOrDefault(x => x.id == barber.id);
+            if (tmpBar != null)
+            {
+                var barberserver = tmpBar.services.FirstOrDefault(x => x.id == service.id);
+                if (barberserver != null)
+                {
+                    tmpBar.services.Remove(barberserver);
+                    await db.SaveChangesAsync();
+                }
+            }
 
         }
     }

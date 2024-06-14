@@ -9,13 +9,13 @@ namespace Library.Services
     {
         private readonly IDbContextFactory<BarberDbContext> _contextFactory;
 
-        public ServicesService(IDbContextFactory<BarberDbContext> dbContextFactory)
+        public ServicesService(IDbContextFactory<BarberDbContext> ContextFactory)
         {
-            _contextFactory = dbContextFactory;
+            _contextFactory = ContextFactory;
         }
 
 
-        public void Save(Service service)
+        public async Task Save(Service service)
         {
             using var db = _contextFactory.CreateDbContext();
 
@@ -23,69 +23,69 @@ namespace Library.Services
 
             if (tmp == null)
             {
-                db.Services.Add(service);
-                db.SaveChanges();
+               db.Services.Add(service);
+               await db.SaveChangesAsync();
             }
 
         }
 
-        public void Update(Service service)
+        public async Task Update(Service service)
         {
             using var db = (_contextFactory.CreateDbContext());
 
-            var tmp = db.Services.FirstOrDefault(x => x.id == service.id);
+            var tmp = db.Services.FirstOrDefault(y => y.id == service.id);
 
             if (tmp != null)
             {
                 tmp.name = service.name;
                 tmp.Price = service.Price;
 
-                db.SaveChanges();
+               await db.SaveChangesAsync();
             }
         }
 
-        public void Delete(Service services)
+        public async void Delete(Service service)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var tmp = db.Services.FirstOrDefault(x => x.id == services.id);
+            var tmp = db.Services.FirstOrDefault(x => x.id == service.id);
 
             if (tmp != null)
             {
                 db.Services.Remove(tmp);
-                db.SaveChanges();
+              await  db.SaveChangesAsync();
             }
         }
 
-        public Service Get(int id)
+        public async Task<Service> Get(int id)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var Service = db.Services.FirstOrDefault(x => x.id == id);
-            return Service;
+            var service = await db.Services.FirstOrDefaultAsync(x => x.id == id);
+            return service;
         }
 
         public Service Get(string name)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var Service = db.Services.FirstOrDefault(x => x.name.ToUpper() == x.name.Trim().ToUpper());
-            return Service;
+            var service = db.Services.FirstOrDefault(x => x.name.ToUpper() == x.name.Trim().ToUpper());
+            return service;
         }
 
-        public List<Service> GetList(string price)
+        public async Task<List<Service>> GetList(string price)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var Service = db.Services.Where(x => x.Price.Contains(price));
-            return [.. Service];
+            var service = db.Services.Where(x => x.Price.Contains(price));
+            return [..await service.ToListAsync()];
         }
 
-        public List<Service> GetAll()
+        public async Task<List<Service>> GetAll()
         {
             using var db = _contextFactory.CreateDbContext();
 
-            return [.. db.Services];
+            return await db.Services.ToListAsync();
         }
     }
     }

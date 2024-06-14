@@ -1,0 +1,100 @@
+﻿@using ClassLibrary.domian
+@using Library.Services
+@using Library.ServicesInterfaces
+@using Library.FluentUI.Components.Pages.ServiceComponents
+@implements IDialogContentComponent
+@inject IBarberService  Barberservice
+@inject IDialogService DialogService
+@inject NavigationManager NavigationManager
+
+<FluentDialogHeader ShowDismiss="true">
+    <h5 class="modal-title">@((Content.id == 0) ? "Add Book" : "Edit Book")</h5>
+</FluentDialogHeader>
+
+<FluentDialogBody>
+    <FluentGrid>
+        <FluentGridItem xs="12" md="8">
+            <FluentGrid>
+                <FluentGridItem xs="12" sm="6" md="6" lg="6">
+                    <FluentTextField @bing-value="@Content.name" Style="width:100%">name</FluentTextField>
+                </FluentGridItem>
+                <FluentGridItem xs="12" sm="6" md="6" lg="6">
+                    <FluentTextField @bing-value="@Content.Phone" Style="width:100%">Phone</FluentTextField>
+                </FluentGridItem>
+                <FluentGridItem xs="12" sm="6" md="6" lg="6">
+                    <FluentTextField @bing-value="@Content.name" Style="width:100%">Email</FluentTextField>
+                </FluentGridItem>
+                <FluentGridItem xs="12" sm="6" md="6" lg="6">
+                    <FluentListbox Items="AvailableServices"
+                                   OptionText="@(i=>i.name)"
+                                   OptionValue="@(i=>i.id.ToString())"
+                                   @bind-SelectedOption="@SelectedService"
+                                   style="width:100%"
+                                   Label="Available Services">
+                        <OptionTemplate>
+                            <FluentButton IconEnd="@(new Icons.Regular.Size16.AddCircle())"
+                                          @onclick="@(()=>AddToBarber(@context))" />
+                            @context.name
+                        </OptionTemplate>
+                    </FluentListbox>
+                </FluentGridItem>
+
+            </FluentGrid>
+
+        </FluentGridItem>
+
+    </FluentGrid>
+</FluentDialogBody>
+@code{
+
+        [Parameter] public EventCallback OnSave { get; set; }
+        [Parameter] public Barber Content { get; set; } = new();
+        [CascadingParameter] public FluentDialog Dialog { get; set; }
+
+    public Service SelectedService { get; set; } = new();
+    public List<Service> AvailableServices { get; set; } = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        AvailableServices = await ServiceService.GetAll();
+    }
+    private async Task SaveAsync()
+    {
+        if (Content.id == 0)
+           {
+            await BarberService.Save(Content);
+
+           }
+           else
+            {
+                await BarberService.Update(Content);
+            }
+            await OnSave.InvokeAsync();
+        await Dialog.CloseAsync(Content);
+    }
+
+    private async void Cancel()
+    {
+        await Dialog.CloseAsync();
+    }
+
+    private async void AddToBarber(Service service)
+    {
+        await Barberservice.AddServiceToBarber(Content, service);
+        Content.services.Add(service);
+        StateHasChanged();
+
+    }
+
+    private async void RemoveFromB(Service service)
+    {
+        await Barberservice.RemoveServiceFromBarber(Content, service);
+        Content.services.Remove(service);
+        StateHasChanged();
+
+    }
+    private void OpenAuthors()
+    {
+        NavigationManager.NavigateTo("/services");
+    }
+}
