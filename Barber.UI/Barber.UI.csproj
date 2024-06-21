@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Library.services1\Library.services1.csproj" />
     <ProjectReference Include="..\Library.ServicesInterface\Library.ServicesInterface.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Components\Pages\ServiceComponents\" />
-  </ItemGroup>
 </Project>

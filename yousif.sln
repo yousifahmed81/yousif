@@ -18,7 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.services1", "Librar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.ServicesInterface", "Library.ServicesInterface\Library.ServicesInterface.csproj", "{CE772327-22AE-4158-81C4-2C6EC08CF064}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Barber.UI", "Barber.UI\Barber.UI.csproj", "{288C5DDF-B915-4AD2-8D06-8E0D6E26509A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Barber.UI", "Barber.UI\Barber.UI.csproj", "{288C5DDF-B915-4AD2-8D06-8E0D6E26509A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Test1", "Test1\Library.Test1.csproj", "{632F97B7-2B48-4255-9A8A-832C81CFF951}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,10 @@ Global
 		{288C5DDF-B915-4AD2-8D06-8E0D6E26509A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{288C5DDF-B915-4AD2-8D06-8E0D6E26509A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{288C5DDF-B915-4AD2-8D06-8E0D6E26509A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{632F97B7-2B48-4255-9A8A-832C81CFF951}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{632F97B7-2B48-4255-9A8A-832C81CFF951}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{632F97B7-2B48-4255-9A8A-832C81CFF951}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{632F97B7-2B48-4255-9A8A-832C81CFF951}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
