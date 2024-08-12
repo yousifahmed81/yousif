@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "yousif.webui", "yousif.webui\yousif.webui.csproj", "{DFC81302-C311-454C-8924-F05CB8053B99}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary.domian", "ClassLibrary.domian\ClassLibrary.domian.csproj", "{51025930-14CB-493C-8B2C-45D2374C1C4A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "entity", "entity", "{5D6A8B99-3F7C-4174-9D8F-2C197ABE89BE}"
@@ -20,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.ServicesInterface",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Barber.UI", "Barber.UI\Barber.UI.csproj", "{288C5DDF-B915-4AD2-8D06-8E0D6E26509A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Test1", "Test1\Library.Test1.csproj", "{632F97B7-2B48-4255-9A8A-832C81CFF951}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Test1", "Test1\Library.Test1.csproj", "{632F97B7-2B48-4255-9A8A-832C81CFF951}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DFC81302-C311-454C-8924-F05CB8053B99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DFC81302-C311-454C-8924-F05CB8053B99}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DFC81302-C311-454C-8924-F05CB8053B99}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DFC81302-C311-454C-8924-F05CB8053B99}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51025930-14CB-493C-8B2C-45D2374C1C4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51025930-14CB-493C-8B2C-45D2374C1C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51025930-14CB-493C-8B2C-45D2374C1C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU

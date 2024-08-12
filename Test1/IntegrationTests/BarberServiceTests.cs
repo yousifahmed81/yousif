@@ -34,7 +34,7 @@ namespace Library.Tests.IntegrationTests
             var options = CreateNewContextOptions();
             var factory = GetDbContextFactory(options);
             var service = new BarberService(factory);
-            var barber = new Barber { name = "Barber1", Phone = "0911785484", Email="yousifahmed1819@gmail.com" };
+            var barber = new Barber { name = "Barber1", Phone = "0911785484", Email = "yousifahmed1819@gmail.com" };
 
             // Act
             await service.Save(barber);
@@ -74,7 +74,7 @@ namespace Library.Tests.IntegrationTests
             await service.Save(barber);
 
             // Act
-            var fetchedBarber = await service.Get("0911785484");
+            var fetchedBarber = await service.Get("Barber1");
 
             // Assert
             Assert.NotNull(fetchedBarber);
@@ -92,7 +92,7 @@ namespace Library.Tests.IntegrationTests
             await service.Save(new Barber { name = "Barber4", Phone = "0927731527", Email = "youifahmad8191@gmail.com" });
 
             // Act
-            var barbers = await service.GetList("Barber");
+            var barbers = await service.GetAll();
 
             // Assert
             Assert.Equal(2, barbers.Count);
@@ -154,49 +154,6 @@ namespace Library.Tests.IntegrationTests
             var updatedBarber = await context.Barbers.FindAsync(barber.id);
             Assert.Equal("ahmed1212@gmail.com", updatedBarber.Email);
             Assert.Equal("1234567890", updatedBarber.Phone);
-        }
-
-        [Fact]
-        public async Task AddServiceToBarber_ShouldAddAuthor()
-        {
-            // Arrange
-            var options = CreateNewContextOptions();
-            var factory = GetDbContextFactory(options);
-            var service = new BarberService(factory);
-            var barber = new Barber {name = "Barber1", Phone = "0911785484", Email = "yousifahmed1819@gmail.com" };
-            var service1 = new Service { name = "service1",  Price = "123456789"};
-            await service.Save(barber);
-
-            // Act
-            await service.AddServiceToBarber(barber, service1);
-
-            // Assert
-            using var context = new BarberDbContext(options);
-            var savedBarber = await context.Barbers.Include(b => b.services).FirstOrDefaultAsync(b => b.id == barber.id);
-            Assert.NotNull(savedBarber);
-            Assert.Contains(savedBarber.services, a => a.name == "service1");
-        }
-
-        [Fact]
-        public async Task RemoveServiceFromBarbe_ShouldRemoveService()
-        {
-            // Arrange
-            var options = CreateNewContextOptions();
-            var factory = GetDbContextFactory(options);
-            var service = new BarberService(factory);
-            var barber = new Barber { name = "Barber1", Phone = "0911785484", Email = "yousifahmed1819@gmail.com" };
-            var service1 = new Service { name = "service1", Price = "123456789" };
-            await service.Save(barber);
-            await service.AddServiceToBarber(barber, service1);
-
-            // Act
-            await service.AddServiceToBarber(barber, service1);
-
-            // Assert
-            using var context = new BarberDbContext(options);
-            var savedBarber = await context.Barbers.Include(b => b.services).FirstOrDefaultAsync(b => b.id == barber.id);
-            Assert.NotNull(savedBarber);
-            Assert.DoesNotContain(savedBarber.services, a => a.name == "service1");
         }
     }
 }

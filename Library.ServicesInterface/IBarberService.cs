@@ -12,9 +12,7 @@ namespace Library.ServicesInterfaces
         Task <Barber> Get(string name);
         Task<List<Barber>> GetList(string Email);
         Task<List<Barber>>GetAll();
-        Task AddServiceToBarber(Barber barber, Service service);
-        Task RemoveServiceFromBarber(Barber barber, Service service);
-
+        Task<Barber> GetByChairNum(string chairNum);
 
     }
 }

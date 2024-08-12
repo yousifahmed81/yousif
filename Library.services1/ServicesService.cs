@@ -44,7 +44,7 @@ namespace Library.Services
             }
         }
 
-        public async void Delete(Service service)
+        public async Task Delete(Service service)
         {
             using var db = _contextFactory.CreateDbContext();
 
@@ -65,12 +65,12 @@ namespace Library.Services
             return service;
         }
 
-        public Service Get(string name)
+        public async Task<Service> Get(string name)
         {
             using var db = _contextFactory.CreateDbContext();
 
-            var service = db.Services.FirstOrDefault(x => x.name.ToUpper() == x.name.Trim().ToUpper());
-            return service;
+            var service = await db.Services.FirstOrDefaultAsync(x => x.name.ToUpper() == x.name.Trim().ToUpper());
+            return  service;
         }
 
         public async Task<List<Service>> GetList(string price)
@@ -87,5 +87,7 @@ namespace Library.Services
 
             return await db.Services.ToListAsync();
         }
+
+        
     }
     }

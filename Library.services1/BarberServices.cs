@@ -31,7 +31,11 @@ namespace Library.Services
             }
 
         }
-
+        public async Task<Barber> GetByChairNum(string chairNum)
+        {
+            using var db = _contextFactory.CreateDbContext();
+            return await db.Barbers.FirstOrDefaultAsync(x => x.ChairNum == chairNum);
+        }
         public async Task Update(Barber barber)
         {
 
@@ -44,6 +48,7 @@ namespace Library.Services
                 tmp.name = barber.name;
                 tmp.Phone = barber.Phone;
                 tmp.Email = barber.Email;
+                tmp.ChairNum = barber.ChairNum;
 
 
                 await db.SaveChangesAsync();
@@ -93,41 +98,6 @@ namespace Library.Services
 
             return await db.Barbers.ToListAsync();
         }
-        public async Task AddServiceToBarber(Barber barber, Service service)
-        {
-            using var db = _contextFactory.CreateDbContext();
-            var tmpBar = db.Barbers.Include(x => x.services).FirstOrDefault(x => x.id == barber.id);
-            if (tmpBar != null)
-            {
-                var tmpSer = db.Services.FirstOrDefault(x => x.id == service.id);
-                if (tmpSer != null)
-                {
-                    tmpBar.services.Add(tmpSer);
-                }
-                else
-                {
-                    db.Services.Add(service);
-                    await db.SaveChangesAsync();
-                    tmpBar.services.Add(service);
-                }
-                await db.SaveChangesAsync();
-            }
-        }
-
-        public async Task RemoveServiceFromBarber(Barber barber, Service service)
-        {
-            using var db = _contextFactory.CreateDbContext();
-            var tmpBar = db.Barbers.Include(x => x.services).FirstOrDefault(x => x.id == barber.id);
-            if (tmpBar != null)
-            {
-                var barberserver = tmpBar.services.FirstOrDefault(x => x.id == service.id);
-                if (barberserver != null)
-                {
-                    tmpBar.services.Remove(barberserver);
-                    await db.SaveChangesAsync();
-                }
-            }
-
-        }
+       
     }
 }

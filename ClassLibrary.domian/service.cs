@@ -20,10 +20,8 @@ namespace ClassLibrary.domian
         
         public string Price { get; set; }
         [MaxLength(length: 100)]
-        public Barber barber { get; set; }
+        public List< Barber> Barbers { get; set; }
 
-        public int barberId { get; set; }
-
-
+      
     }
 }

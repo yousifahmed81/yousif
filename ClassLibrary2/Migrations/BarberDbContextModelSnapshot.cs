@@ -16,46 +16,37 @@ namespace ClassLibrary2.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.5")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ClassLibrary.domian.Service", b =>
+            modelBuilder.Entity("BarberService", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Barbersid")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("barberId")
+                    b.Property<int>("Servicesid")
                         .HasColumnType("int");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.HasKey("Barbersid", "Servicesid");
 
-                    b.HasKey("id");
+                    b.HasIndex("Servicesid");
 
-                    b.HasIndex("barberId");
-
-                    b.ToTable("Services");
+                    b.ToTable("BarberService");
                 });
 
-            modelBuilder.Entity("ClassLibrary.domian.barber", b =>
+            modelBuilder.Entity("ClassLibrary.domian.Barber", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("ChairNum")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -79,18 +70,40 @@ namespace ClassLibrary2.Migrations
 
             modelBuilder.Entity("ClassLibrary.domian.Service", b =>
                 {
-                    b.HasOne("ClassLibrary.domian.barber", "barber")
-                        .WithMany("services")
-                        .HasForeignKey("barberId")
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("Price")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("BarberService", b =>
+                {
+                    b.HasOne("ClassLibrary.domian.Barber", null)
+                        .WithMany()
+                        .HasForeignKey("Barbersid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("barber");
-                });
-
-            modelBuilder.Entity("ClassLibrary.domian.barber", b =>
-                {
-                    b.Navigation("services");
+                    b.HasOne("ClassLibrary.domian.Service", null)
+                        .WithMany()
+                        .HasForeignKey("Servicesid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

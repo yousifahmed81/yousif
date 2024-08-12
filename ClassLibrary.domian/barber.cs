@@ -18,11 +18,13 @@ namespace ClassLibrary.domian
         [Phone]
         public string Phone { get; set; }
         
-        [MaxLength( length : 60)]
+        [MaxLength(length : 60)]
         [EmailAddress]
         public string Email { get; set; }
+        public string ChairNum { get; set; }
 
-        public List<Service> services { get; set; }
+
+        public List<Service> Services { get; set; }
     }
 
 }
