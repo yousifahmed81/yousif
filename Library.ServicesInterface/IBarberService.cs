@@ -1,5 +1,5 @@
 ﻿using ClassLibrary.domian;
-using ClassLibrary;
+using ClassLibrary2;
 namespace Library.ServicesInterfaces
 {
     public interface IBarberService
